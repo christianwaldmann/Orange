@@ -272,12 +272,12 @@ namespace Orange {
 	}
 
 
-	void Renderer2D::DrawQuadRotated(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color) {
-		DrawQuadRotated({ position.x, position.y, 0.0f }, size, rotation, color);
+	void Renderer2D::DrawQuadRotated(const glm::vec2& position, const glm::vec2& size, float angleInRad, const glm::vec4& color) {
+		DrawQuadRotated({ position.x, position.y, 0.0f }, size, angleInRad, color);
 	}
 
 
-	void Renderer2D::DrawQuadRotated(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color) {
+	void Renderer2D::DrawQuadRotated(const glm::vec3& position, const glm::vec2& size, float angleInRad, const glm::vec4& color) {
 		OG_PROFILE_FUNCTION();
 
 		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
@@ -287,7 +287,7 @@ namespace Orange {
 		const float tilingFactor = 1.0f;
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
+			* glm::rotate(glm::mat4(1.0f), angleInRad, { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
 		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];
@@ -324,12 +324,12 @@ namespace Orange {
 	}
 
 
-	void Renderer2D::DrawQuadRotated(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor) {
-		DrawQuadRotated({ position.x, position.y, 0.0f }, size, rotation, texture, tilingFactor, tintColor);
+	void Renderer2D::DrawQuadRotated(const glm::vec2& position, const glm::vec2& size, float angleInRad, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor) {
+		DrawQuadRotated({ position.x, position.y, 0.0f }, size, angleInRad, texture, tilingFactor, tintColor);
 	}
 
 
-	void Renderer2D::DrawQuadRotated(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor) {
+	void Renderer2D::DrawQuadRotated(const glm::vec3& position, const glm::vec2& size, float angleInRad, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor) {
 		OG_PROFILE_FUNCTION();
 
 		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
@@ -352,7 +352,7 @@ namespace Orange {
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
+			* glm::rotate(glm::mat4(1.0f), angleInRad, { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
 		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];
