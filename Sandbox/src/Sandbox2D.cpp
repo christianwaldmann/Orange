@@ -15,6 +15,11 @@ void Sandbox2D::OnAttach() {
 	OG_PROFILE_FUNCTION();
 
 	m_CheckerboardTexture = Orange::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_SpriteSheet = Orange::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
+
+	m_TextureStairs = Orange::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 7, 6 }, { 128, 128 });
+	m_TextureBarrel = Orange::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 8, 2 }, { 128, 128 });
+	m_TextureTree = Orange::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 1 }, { 128, 128 }, { 1, 2 });
 
 	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -46,7 +51,7 @@ void Sandbox2D::OnUpdate(Orange::Timestep ts) {
 		Orange::RenderCommand::Clear();
 	}
 
-	{
+	/*{
 		static float rotation = 0.0f;
 		rotation += ts * 50.0f;
 
@@ -69,7 +74,7 @@ void Sandbox2D::OnUpdate(Orange::Timestep ts) {
 			}
 		}
 		Orange::Renderer2D::EndScene();
-	}
+	}*/
 
 	if (Orange::Input::IsMouseButtonPressed(OG_MOUSE_BUTTON_LEFT)) {
 		auto [x, y] = Orange::Input::GetMousePosition();
@@ -81,12 +86,17 @@ void Sandbox2D::OnUpdate(Orange::Timestep ts) {
 		x = (x / width) * bounds.GetWidth() - bounds.GetWidth() * 0.5f;
 		y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
 		m_Particle.Position = { x + pos.x, y + pos.y };
-		for (int i = 0; i < 50; i++)
+		for (int i = 0; i < 5; i++)
 			m_ParticleSystem.Emit(m_Particle);
 	}
-
 	m_ParticleSystem.OnUpdate(ts);
 	m_ParticleSystem.OnRender(m_CameraController.GetCamera());
+
+	Orange::Renderer2D::BeginScene(m_CameraController.GetCamera());
+	Orange::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.99f }, { 1.0f, 1.0f }, m_TextureStairs);
+	Orange::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.99f }, { 1.0f, 1.0f }, m_TextureBarrel);
+	Orange::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.99f }, { 1.0f, 2.0f }, m_TextureTree);
+	Orange::Renderer2D::EndScene();
 }
 
 

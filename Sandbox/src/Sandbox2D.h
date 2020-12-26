@@ -26,6 +26,8 @@ private:
 	Orange::Ref<Orange::Shader> m_FlatColorShader;
 
 	Orange::Ref<Orange::Texture2D> m_CheckerboardTexture;
+	Orange::Ref<Orange::Texture2D> m_SpriteSheet;
+	Orange::Ref<Orange::SubTexture2D> m_TextureStairs, m_TextureBarrel, m_TextureTree;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 
