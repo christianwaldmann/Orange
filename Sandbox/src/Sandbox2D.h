@@ -24,6 +24,7 @@ private:
 	// TEMP
 	Orange::Ref<Orange::VertexArray> m_SquareVA;
 	Orange::Ref<Orange::Shader> m_FlatColorShader;
+	Orange::Ref<Orange::Framebuffer> m_Framebuffer;
 
 	Orange::Ref<Orange::Texture2D> m_CheckerboardTexture;
 	Orange::Ref<Orange::Texture2D> m_SpriteSheet;
