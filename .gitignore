@@ -5,6 +5,9 @@ bin-int/
 
 # Hazel files
 *.log
+**/OrangeProfile-Startup.json
+**/OrangeProfile-Runtime.json
+**/OrangeProfile-Shutdown.json
 
 # Visual Studio files and folder
 .vs/
