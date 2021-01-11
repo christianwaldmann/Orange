@@ -17,6 +17,11 @@
 
 #include "Orange/Renderer/OrthographicCameraController.h"
 
+#include "Orange/ImGui/ImGuiLayer.h"
+
+#include "Orange/Scene/Scene.h"
+#include "Orange/Scene/Components.h"
+
 // --- Renderer -------------------------------------
 
 #include "Orange/Renderer/Renderer.h"
