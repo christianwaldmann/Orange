@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Orange/Renderer/Camera.h"
+
 #include <glm/glm.hpp>
 
 
@@ -32,6 +34,16 @@ namespace Orange {
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color) : Color(color) {}
+	};
+
+
+	struct CameraComponent {
+		Orange::Camera Camera;
+		bool Primary = true; // TODO: think about moving to Scene
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+		CameraComponent(const glm::mat4& projection) : Camera(projection) {}
 	};
 
 }
