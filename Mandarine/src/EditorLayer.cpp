@@ -67,6 +67,9 @@ namespace Orange {
 
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 		m_SecondCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
+		// Panels
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
 
 
@@ -165,6 +168,8 @@ namespace Orange {
 
 			ImGui::EndMenuBar();
 		}
+
+		m_SceneHierarchyPanel.OnImGuiRender();
 
 		ImGui::Begin("Settings");
 
