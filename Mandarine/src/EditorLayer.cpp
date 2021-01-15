@@ -199,9 +199,6 @@ namespace Orange {
 		ImGui::PopStyleVar();
 
 		ImGui::End();
-
-		auto& a = m_CameraEntity.GetComponent<CameraComponent>();
-		int b = 1;
 	}
 
 
