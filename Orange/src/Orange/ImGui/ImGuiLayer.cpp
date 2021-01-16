@@ -6,6 +6,8 @@
 
 #include "Orange/Core/Application.h"
 
+#include "ImGuizmo.h"
+
 
 namespace Orange {
 
@@ -78,6 +80,7 @@ namespace Orange {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+		ImGuizmo::BeginFrame();
 	}
 
 

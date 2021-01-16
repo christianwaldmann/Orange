@@ -23,6 +23,7 @@ IncludeDir["glm"] = "Orange/vendor/glm"
 IncludeDir["stb_image"] = "Orange/vendor/stb_image"
 IncludeDir["entt"] = "Orange/vendor/entt/include"
 IncludeDir["yaml_cpp"] = "Orange/vendor/yaml-cpp/include"
+IncludeDir["ImGuizmo"] = "Orange/vendor/imguizmo"
 
 
 group "Dependencies"
@@ -56,6 +57,8 @@ project "Orange"
 		"%{prj.name}/vendor/stb_image/**.h",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
+		"%{prj.name}/vendor/imguizmo/ImGuizmo.h",
+		"%{prj.name}/vendor/imguizmo/ImGuizmo.cpp",
 	}
 
 	defines
@@ -75,6 +78,7 @@ project "Orange"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.yaml_cpp}",
+		"%{IncludeDir.ImGuizmo}",
 	}
 
 	links
@@ -85,6 +89,9 @@ project "Orange"
 		"yaml-cpp",
 		"opengl32.lib",
 	}
+
+	filter "files:Orange/vendor/imguizmo/**.cpp"
+	flags { "NoPCH" }
 
 	filter "system:windows"
 		systemversion "latest"
@@ -190,6 +197,7 @@ project "Mandarine"
 		"Orange/src",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.entt}",
+		"%{IncludeDir.ImGuizmo}",
 	}
 
 	links
