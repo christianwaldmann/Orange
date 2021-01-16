@@ -22,12 +22,14 @@ IncludeDir["ImGui"] = "Orange/vendor/imgui"
 IncludeDir["glm"] = "Orange/vendor/glm"
 IncludeDir["stb_image"] = "Orange/vendor/stb_image"
 IncludeDir["entt"] = "Orange/vendor/entt/include"
+IncludeDir["yaml_cpp"] = "Orange/vendor/yaml-cpp/include"
 
 
 group "Dependencies"
 	include "Orange/vendor/GLFW"
 	include "Orange/vendor/Glad"
 	include "Orange/vendor/imgui"
+	include "Orange/vendor/yaml-cpp"
 
 
 group ""
@@ -72,6 +74,7 @@ project "Orange"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
+		"%{IncludeDir.yaml_cpp}",
 	}
 
 	links
@@ -79,7 +82,8 @@ project "Orange"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib"
+		"yaml-cpp",
+		"opengl32.lib",
 	}
 
 	filter "system:windows"
