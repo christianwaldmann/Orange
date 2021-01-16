@@ -3,6 +3,8 @@
 #include "Orange.h"
 #include "Panels/SceneHierarchyPanel.h"
 
+#include "Orange/Renderer/EditorCamera.h"
+
 
 namespace Orange {
 	class EditorLayer : public Layer {
@@ -39,6 +41,8 @@ namespace Orange {
 		Entity m_SecondCamera;
 
 		bool m_PrimaryCamera = true;
+
+		EditorCamera m_EditorCamera;
 
 		Ref<Texture2D> m_CheckerboardTexture;
 

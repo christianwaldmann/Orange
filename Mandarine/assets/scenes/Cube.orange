@@ -45,3 +45,21 @@ Entities:
       Scale: [2, 2, 1]
     SpriteRendererComponent:
       Color: [0, 0.279869497, 0.583011627, 1]
+  - Entity: 12865597597569
+    TagComponent:
+      Tag: Background Pane
+    TransformComponent:
+      Translation: [0, 20, -20]
+      Rotation: [0, 0, 0]
+      Scale: [75, 50, 1]
+    SpriteRendererComponent:
+      Color: [0.779922783, 0.779914975, 0.779914975, 1]
+  - Entity: 12865597597569
+    TagComponent:
+      Tag: Bottom Pane
+    TransformComponent:
+      Translation: [0, -5, 14.7426605]
+      Rotation: [1.57079637, 0, 0]
+      Scale: [75, 71.4536362, 0.999672234]
+    SpriteRendererComponent:
+      Color: [0.67567569, 0.675668895, 0.675668895, 1]
