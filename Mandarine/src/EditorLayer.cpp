@@ -4,6 +4,8 @@
 
 #include "Orange/Scene/SceneSerializer.h"
 
+#include "Orange/Utils/PlatformUtils.h"
+
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -173,15 +175,11 @@ namespace Orange {
 		if (ImGui::BeginMenuBar()) {
 			if (ImGui::BeginMenu("File")) {
 
-				if (ImGui::MenuItem("Serialize")) {
-					SceneSerializer serializer(m_ActiveScene);
-					serializer.Serialize("assets/scenes/Example.orange");
-				}
+				if (ImGui::MenuItem("New", "Ctrl+N")) NewScene();
 
-				if (ImGui::MenuItem("Deserialize")) {
-					SceneSerializer serializer(m_ActiveScene);
-					serializer.Deserialize("assets/scenes/Example.orange");
-				}
+				if (ImGui::MenuItem("Open...", "Ctrl+O")) OpenScene();
+
+				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) SaveSceneAs();
 
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 
@@ -223,6 +221,63 @@ namespace Orange {
 
 	void EditorLayer::OnEvent(Event& event) {
 		m_CameraController.OnEvent(event);
+
+		EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<KeyPressedEvent>(OG_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+	}
+
+
+	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e) {
+		// Shortcuts
+		if (e.GetRepeatCount() > 0)
+			return false;
+
+		bool control = Input::IsKeyPressed(OG_KEY_LEFT_CONTROL) || Input::IsKeyPressed(OG_KEY_RIGHT_CONTROL);
+		bool shift = Input::IsKeyPressed(OG_KEY_LEFT_SHIFT) || Input::IsKeyPressed(OG_KEY_RIGHT_SHIFT);
+		switch (e.GetKeyCode()) {
+		case OG_KEY_N:
+			if (control)
+				NewScene();
+			break;
+		case OG_KEY_O:
+			if (control)
+				OpenScene();
+			break;
+		case OG_KEY_S:
+			if (control && shift)
+				SaveSceneAs();
+			break;
+		}
+	}
+
+
+	void EditorLayer::NewScene() {
+		m_ActiveScene = CreateRef<Scene>();
+		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+	}
+
+
+	void EditorLayer::OpenScene() {
+		std::string filepath = FileDialogs::OpenFile("Orange Scene (*.orange)\0*.orange\0");
+		if (!filepath.empty()) {
+			m_ActiveScene = CreateRef<Scene>();
+			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Deserialize(filepath);
+		}
+	}
+
+
+	void EditorLayer::SaveSceneAs() {
+		std::string filepath = FileDialogs::SaveFile("Orange Scene (*.orange)\0*.orange\0");
+
+		if (!filepath.empty()) {
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Serialize(filepath);
+		}
 	}
 
 }
