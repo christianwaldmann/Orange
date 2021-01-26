@@ -10,9 +10,9 @@
 [submodule "Orange/vendor/glm"]
 	path = Orange/vendor/glm
 	url = https://github.com/christianwaldmann/glm
-[submodule "Orange\\vendor\\yaml-cpp"]
-	path = Orange\\vendor\\yaml-cpp
+[submodule "Orange/vendor/yaml-cpp"]
+	path = Orange/vendor/yaml-cpp
 	url = https://github.com/christianwaldmann/yaml-cpp
-[submodule "Orange\\vendor\\imguizmo"]
-	path = Orange\\vendor\\imguizmo
+[submodule "Orange/vendor/imguizmo"]
+	path = Orange/vendor/imguizmo
 	url = https://github.com/christianwaldmann/ImGuizmo
