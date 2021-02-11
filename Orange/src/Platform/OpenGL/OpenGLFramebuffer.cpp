@@ -67,6 +67,16 @@ namespace Orange {
 			}
 			return false;
 		}
+
+
+		static GLenum OrangeFBTextureFormatToGL(FramebufferTextureFormat format) {
+			switch (format) {
+			case FramebufferTextureFormat::RGBA8: return GL_RGBA8;
+			case FramebufferTextureFormat::RED_INTEGER: return GL_RED_INTEGER;
+			}
+			OG_CORE_ASSERT(false, "");
+			return 0;
+		}
 	}
 
 
@@ -176,6 +186,14 @@ namespace Orange {
 		int pixelData;
 		glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
 		return pixelData;
+	}
+
+
+	void OpenGLFramebuffer::ClearAttachment(uint32_t attachmentIndex, int value) {
+		OG_CORE_ASSERT(attachmentIndex < m_ColorAttachments.size(), "");
+
+		auto& spec = m_ColorAttachmentSpecifications[attachmentIndex];
+		glClearTexImage(m_ColorAttachments[attachmentIndex], 0, Utils::OrangeFBTextureFormatToGL(spec.TextureFormat), GL_INT, &value);
 	}
 
 }
