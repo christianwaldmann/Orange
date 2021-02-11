@@ -136,7 +136,7 @@ namespace Orange {
 
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y) {
 			int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
-			OG_CORE_WARN("PixelData = {0}", pixelData);
+			m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
 		}
 
 		m_Framebuffer->Unbind();
@@ -217,6 +217,11 @@ namespace Orange {
 		m_SceneHierarchyPanel.OnImGuiRender();
 
 		ImGui::Begin("Statistics");
+
+		std::string name = "None";
+		if (m_HoveredEntity)
+			name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
+		ImGui::Text("Hovered Entity: %s", name.c_str());
 
 		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
@@ -308,7 +313,15 @@ namespace Orange {
 		m_EditorCamera.OnEvent(event);
 
 		EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<MouseButtonPressedEvent>(OG_BIND_EVENT_FN(EditorLayer::OnMouseClicked));
 		dispatcher.Dispatch<KeyPressedEvent>(OG_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+	}
+
+
+	bool EditorLayer::OnMouseClicked(MouseButtonPressedEvent& e) {
+		if (m_HoveredEntity)
+			m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
+		return false;
 	}
 
 

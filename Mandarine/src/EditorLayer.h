@@ -21,6 +21,7 @@ namespace Orange {
 		void OnEvent(Event& event) override;
 
 	private:
+		bool OnMouseClicked(MouseButtonPressedEvent& e);
 		bool OnKeyPressed(KeyPressedEvent& e);
 
 		void NewScene();
@@ -39,6 +40,8 @@ namespace Orange {
 		Entity m_SquareEntity;
 		Entity m_CameraEntity;
 		Entity m_SecondCamera;
+
+		Entity m_HoveredEntity;
 
 		bool m_PrimaryCamera = true;
 
