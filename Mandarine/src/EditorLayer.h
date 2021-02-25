@@ -21,7 +21,7 @@ namespace Orange {
 		void OnEvent(Event& event) override;
 
 	private:
-		bool OnMouseClicked(MouseButtonPressedEvent& e);
+		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 		bool OnKeyPressed(KeyPressedEvent& e);
 
 		void NewScene();

@@ -256,14 +256,16 @@ namespace Orange {
 		m_EditorCamera.OnEvent(event);
 
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<MouseButtonPressedEvent>(OG_BIND_EVENT_FN(EditorLayer::OnMouseClicked));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(OG_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
 		dispatcher.Dispatch<KeyPressedEvent>(OG_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
 	}
 
 
-	bool EditorLayer::OnMouseClicked(MouseButtonPressedEvent& e) {
-		if (m_HoveredEntity)
-			m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
+	bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e) {
+		if (e.GetMouseButton() == OG_MOUSE_BUTTON_LEFT)
+			// Mouse Picking
+			if (m_ViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(OG_KEY_LEFT_ALT))
+				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
 		return false;
 	}
 
