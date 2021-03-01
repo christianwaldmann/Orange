@@ -21,6 +21,7 @@ namespace Orange {
 		void OnEvent(Event& event) override;
 
 	private:
+		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 		bool OnKeyPressed(KeyPressedEvent& e);
 
 		void NewScene();
@@ -40,14 +41,15 @@ namespace Orange {
 		Entity m_CameraEntity;
 		Entity m_SecondCamera;
 
+		Entity m_HoveredEntity;
+
 		bool m_PrimaryCamera = true;
 
 		EditorCamera m_EditorCamera;
 
-		Ref<Texture2D> m_CheckerboardTexture;
-
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = { 0, 0 };
+		glm::vec2 m_ViewportBounds[2];
 
 		int m_GizmoType = -1;
 
